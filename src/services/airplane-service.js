@@ -8,7 +8,7 @@ async function createAirplane(data) {
         return airplane;
     }
     catch (err){
-        throw error;
+        throw err;
     }
 }
 

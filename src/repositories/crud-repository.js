@@ -21,6 +21,7 @@ class CrudRepository {
           id: data,
         },
       });
+      return response;
     } catch (error) {
       Logger.error("Something went wrong in Crud Repo: destroy");
       throw error;
@@ -35,7 +36,7 @@ class CrudRepository {
       throw error;
     }
   }
-  async getAll(data) {
+  async getAll() {
     try {
       const response = await this.model.findAll();
       return response;
