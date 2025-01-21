@@ -12,6 +12,9 @@ module.exports = {
       modelNumber: {
         allowNull: false,
         type: Sequelize.STRING,
+        validate: {
+          isAlphanumeric: true,
+        },
       },
       capacity: {
         type: Sequelize.INTEGER,
