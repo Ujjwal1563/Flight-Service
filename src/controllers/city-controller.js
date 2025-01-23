@@ -20,19 +20,44 @@ async function createCity(req, res) {
   }
 }
 
-async function destroyCity (req,res){
+async function destroyCity(req, res) {
   try {
     const city = await CityService.destroyCity(req.params.id);
-    SuccessResponse.data= city;
+    SuccessResponse.data = city;
     return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
   }
-  catch (error){
-    ErrorResponse.error=error;
+}
+
+async function updateCity(req, res) {
+  try {
+    const city = await CityService.updateCity(req.params.id, {
+      name: req.body.name,
+    });
+    SuccessResponse.data = city;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function getCities(req, res) {
+  try {
+    const cities = await CityService.getCities();
+    SuccessResponse.data = cities;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
   }
 }
 
 module.exports = {
   createCity,
-  destroyCity
+  destroyCity,
+  updateCity,
+  getCities,
 };
