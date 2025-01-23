@@ -56,13 +56,21 @@ class CrudRepository {
       throw error;
     }
   }
-  async update(data) {
+  async update(id,data) {
     try {
       const response = await this.model.update(data, {
         where: {
           id: id,
         },
       });
+      const available = await this.model.findByPk(id,{
+        where:{
+          id:id,
+        }
+      })
+      if(!available){
+        throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
+      }
       return response;
     } catch (error) {
       Logger.error("Something went wrong in Crud Repo: update");
