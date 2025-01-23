@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const { CityRepository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
+const { ErrorResponse } = require("../utils/common");
 
 const cityRepository = new CityRepository();
 
@@ -27,6 +28,28 @@ async function createCity(data) {
   }
 }
 
+async function destroyCity(id){
+    try {
+        const city = await cityRepository.destroy(id);
+        return city;
+    }
+    catch (error){
+        if(error.statusCode==StatusCodes.NOT_FOUND){
+            throw new AppError (
+                'The City you requested to delete is not present',
+                error.statusCode
+            )
+        }
+        throw new AppError(
+            'Cannot destroy the City',
+            StatusCodes.INTERNAL_SERVER_ERROR
+        );
+
+    }
+
+}
+
 module.exports = {
   createCity,
+  destroyCity
 };
