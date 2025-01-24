@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.Airport, {
         foreignKey: "cityId",
+        onDelete: "CASCADE",
       });
     }
   }
@@ -18,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: {
         type: DataTypes.STRING,
-        allowNull:false,
-        unique:true,
+        allowNull: false,
+        unique: true,
       },
     },
     {
