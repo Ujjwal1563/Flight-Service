@@ -2,7 +2,6 @@ const { StatusCodes } = require("http-status-codes");
 
 const { CityRepository, AirplaneRepository } = require("../repositories");
 const AppError = require("../utils/errors/app-error");
-const { ErrorResponse } = require("../utils/common");
 
 const cityRepository = new CityRepository();
 
